@@ -1,0 +1,153 @@
+@model PersonelTakipSistemi.Models.ViewModels.MesaiCreateViewModel
+
+@{
+    ViewData["Title"] = "Yeni Mesai Kaydı";
+}
+
+<div class="container-fluid">
+    <h2 class="mb-4">@ViewData["Title"]</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <form asp-action="Create" id="mesaiForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="PersonelId" class="control-label"></label>
+                            <select asp-for="PersonelId" asp-items="Model.Personeller" class="form-select">
+                                <option value="">Personel Seçin</option>
+                            </select>
+                            <span asp-validation-for="PersonelId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Tip" class="control-label"></label>
+                            <select asp-for="Tip" asp-items="Html.GetEnumSelectList<MesaiTipi>()" class="form-select"></select>
+                            <span asp-validation-for="Tip" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="GirisSaati" class="control-label"></label>
+                            <input asp-for="GirisSaati" class="form-control" type="datetime-local" />
+                            <span asp-validation-for="GirisSaati" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="PlanlananSure" class="control-label"></label>
+                            <div class="input-group">
+                                <input asp-for="PlanlananSure" class="form-control" type="number" min="1" max="24" />
+                                <span class="input-group-text">saat</span>
+                            </div>
+                            <span asp-validation-for="PlanlananSure" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="Aciklama" class="control-label"></label>
+                            <textarea asp-for="Aciklama" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="Aciklama" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <div class="alert alert-info" id="tahminiUcretBilgisi" style="display: none;">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <span id="tahminiUcretMetni"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-2"></i>Kaydet
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Listeye Dön
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            // Select2 ile personel seçimini geliştir
+            $('#PersonelId').select2({
+                placeholder: "Personel seçin...",
+                allowClear: true
+            });
+
+            // Personel maaş bilgilerini saklamak için
+            var personelMaaslar = {};
+
+            // Personel listesini yükle
+            $.get('/Personel/GetPersonelMaaslar', function(data) {
+                personelMaaslar = data;
+            });
+
+            // Tahmini ücret hesaplama
+            function hesaplaTahminiUcret() {
+                var personelId = $('#PersonelId').val();
+                var mesaiTipi = $('#Tip').val();
+                var planlananSure = $('#PlanlananSure').val();
+
+                if (personelId && mesaiTipi && planlananSure) {
+                    var maas = personelMaaslar[personelId];
+                    if (maas) {
+                        // Mesai katsayılarını belirle
+                        var katsayi = 1.0;
+                        switch (parseInt(mesaiTipi)) {
+                            case 1: // Normal
+                                katsayi = 1.5;
+                                break;
+                            case 2: // FazlaMesai
+                                katsayi = 2.0;
+                                break;
+                            case 3: // TatilMesai
+                                katsayi = 2.5;
+                                break;
+                            case 4: // GeceMesai
+                                katsayi = 2.0;
+                                break;
+                        }
+
+                        // Saatlik ücret hesapla (aylık maaş / 225 saat)
+                        var saatlikUcret = maas / 225;
+                        var tahminiUcret = saatlikUcret * katsayi * planlananSure;
+
+                        // Sonucu göster
+                        $('#tahminiUcretMetni').text(
+                            'Tahmini Mesai Ücreti: ' + 
+                            tahminiUcret.toLocaleString('tr-TR', {
+                                style: 'currency',
+                                currency: 'TRY'
+                            })
+                        );
+                        $('#tahminiUcretBilgisi').show();
+                    }
+                } else {
+                    $('#tahminiUcretBilgisi').hide();
+                }
+            }
+
+            // Değişiklikleri dinle
+            $('#PersonelId, #Tip, #PlanlananSure').on('change', hesaplaTahminiUcret);
+        });
+    </script>
+} 

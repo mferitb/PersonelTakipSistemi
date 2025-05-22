@@ -1,0 +1,108 @@
+@model PersonelTakipSistemi.Models.ViewModels.PersonelEditViewModel
+
+@{
+    ViewData["Title"] = "Personel Düzenle";
+}
+
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-group mb-3">
+                    <label asp-for="TCKimlikNo" class="control-label"></label>
+                    <input asp-for="TCKimlikNo" class="form-control" maxlength="11" />
+                    <span asp-validation-for="TCKimlikNo" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="Ad" class="control-label"></label>
+                            <input asp-for="Ad" class="form-control" />
+                            <span asp-validation-for="Ad" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="Soyad" class="control-label"></label>
+                            <input asp-for="Soyad" class="form-control" />
+                            <span asp-validation-for="Soyad" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="Telefon" class="control-label"></label>
+                            <input asp-for="Telefon" class="form-control" />
+                            <span asp-validation-for="Telefon" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Adres" class="control-label"></label>
+                    <textarea asp-for="Adres" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Adres" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="DepartmanAd" class="control-label"></label>
+                            <input asp-for="DepartmanAd" class="form-control" placeholder="Departman adını giriniz" />
+                            <span asp-validation-for="DepartmanAd" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="PozisyonAd" class="control-label"></label>
+                            <input asp-for="PozisyonAd" class="form-control" placeholder="Pozisyon adını giriniz" />
+                            <span asp-validation-for="PozisyonAd" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="IseGirisTarihi" class="control-label"></label>
+                            <input asp-for="IseGirisTarihi" class="form-control" type="date" />
+                            <span asp-validation-for="IseGirisTarihi" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="Maas" class="control-label"></label>
+                            <input asp-for="Maas" class="form-control" type="number" step="0.01" />
+                            <span asp-validation-for="Maas" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mt-4">
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                    <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

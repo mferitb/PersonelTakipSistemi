@@ -1,0 +1,79 @@
+@model PersonelTakipSistemi.Models.ViewModels.IzinCreateViewModel
+
+@{
+    ViewData["Title"] = "Yeni İzin Talebi";
+}
+
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-action="Create" method="post" novalidate>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="PersonelId" class="control-label"></label>
+                    <select asp-for="PersonelId" asp-items="Model.Personeller" class="form-select">
+                        <option value="">Personel Seçiniz</option>
+                    </select>
+                    <span asp-validation-for="PersonelId" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="BaslangicTarihi" class="control-label"></label>
+                            <input asp-for="BaslangicTarihi" class="form-control" type="date" />
+                            <span asp-validation-for="BaslangicTarihi" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="BitisTarihi" class="control-label"></label>
+                            <input asp-for="BitisTarihi" class="form-control" type="date" />
+                            <span asp-validation-for="BitisTarihi" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="IzinTuru" class="control-label"></label>
+                    <select asp-for="IzinTuru" asp-items="Html.GetEnumSelectList<PersonelTakipSistemi.Models.IzinTuru>()" class="form-select">
+                        <option value="">İzin Türü Seçiniz</option>
+                    </select>
+                    <span asp-validation-for="IzinTuru" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Aciklama" class="control-label"></label>
+                    <textarea asp-for="Aciklama" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Aciklama" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-4">
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                    <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        // Tarih seçicilerin minimum değerini bugün olarak ayarla
+        document.addEventListener('DOMContentLoaded', function() {
+            var today = new Date().toISOString().split('T')[0];
+            document.getElementById('BaslangicTarihi').min = today;
+            document.getElementById('BitisTarihi').min = today;
+
+            // Başlangıç tarihi değiştiğinde bitiş tarihinin minimum değerini güncelle
+            document.getElementById('BaslangicTarihi').addEventListener('change', function() {
+                document.getElementById('BitisTarihi').min = this.value;
+            });
+        });
+    </script>
+} 

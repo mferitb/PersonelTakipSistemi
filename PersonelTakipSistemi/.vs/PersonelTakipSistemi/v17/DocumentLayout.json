@@ -1,0 +1,81 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Mehmet Ferit Bilen\\source\\repos\\PersonelTakipSistemi\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B6310698-94EA-405A-9B2E-3EB4C66DB652}|PersonelTakipSistemi\\PersonelTakipSistemi.csproj|c:\\users\\mehmet ferit bilen\\source\\repos\\personeltakipsistemi\\personeltakipsistemi\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B6310698-94EA-405A-9B2E-3EB4C66DB652}|PersonelTakipSistemi\\PersonelTakipSistemi.csproj|solutionrelative:personeltakipsistemi\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6310698-94EA-405A-9B2E-3EB4C66DB652}|PersonelTakipSistemi\\PersonelTakipSistemi.csproj|c:\\users\\mehmet ferit bilen\\source\\repos\\personeltakipsistemi\\personeltakipsistemi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6310698-94EA-405A-9B2E-3EB4C66DB652}|PersonelTakipSistemi\\PersonelTakipSistemi.csproj|solutionrelative:personeltakipsistemi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6310698-94EA-405A-9B2E-3EB4C66DB652}|PersonelTakipSistemi\\PersonelTakipSistemi.csproj|c:\\users\\mehmet ferit bilen\\source\\repos\\personeltakipsistemi\\personeltakipsistemi\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B6310698-94EA-405A-9B2E-3EB4C66DB652}|PersonelTakipSistemi\\PersonelTakipSistemi.csproj|solutionrelative:personeltakipsistemi\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 257,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Mehmet Ferit Bilen\\source\\repos\\PersonelTakipSistemi\\PersonelTakipSistemi\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "PersonelTakipSistemi\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Mehmet Ferit Bilen\\source\\repos\\PersonelTakipSistemi\\PersonelTakipSistemi\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "PersonelTakipSistemi\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-22T18:51:23.361Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Mehmet Ferit Bilen\\source\\repos\\PersonelTakipSistemi\\PersonelTakipSistemi\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "PersonelTakipSistemi\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Mehmet Ferit Bilen\\source\\repos\\PersonelTakipSistemi\\PersonelTakipSistemi\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "PersonelTakipSistemi\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAACEAAAAAAAAAAAAuwC8AAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-22T18:51:04.061Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Mehmet Ferit Bilen\\source\\repos\\PersonelTakipSistemi\\PersonelTakipSistemi\\Program.cs",
+              "RelativeDocumentMoniker": "PersonelTakipSistemi\\Program.cs",
+              "ToolTip": "C:\\Users\\Mehmet Ferit Bilen\\source\\repos\\PersonelTakipSistemi\\PersonelTakipSistemi\\Program.cs",
+              "RelativeToolTip": "PersonelTakipSistemi\\Program.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAIAwwEQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-22T13:39:43.556Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedHeight": 143,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

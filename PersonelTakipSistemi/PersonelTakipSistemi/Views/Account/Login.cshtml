@@ -1,0 +1,48 @@
+@model PersonelTakipSistemi.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Yönetici Girişi";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Ensure using the main layout
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-header bg-primary text-white text-center py-4">
+                    <h3 class="fw-light my-4"><i class="fas fa-user-shield me-2"></i>@ViewData["Title"]</h3>
+                </div>
+                <div class="card-body p-5">
+                    <form asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger small mb-4"></div>
+                        
+                        <div class="form-floating mb-4">
+                            <input asp-for="Username" class="form-control" placeholder=" " />
+                            <label asp-for="Username">Kullanıcı Adı</label>
+                            <span asp-validation-for="Username" class="text-danger small"></span>
+                        </div>
+                        
+                        <div class="form-floating mb-4">
+                            <input asp-for="Password" class="form-control" placeholder=" " type="password" />
+                            <label asp-for="Password">Şifre</label>
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
+                        
+                        <div class="form-check mb-4">
+                            <input asp-for="RememberMe" class="form-check-input" />
+                            <label asp-for="RememberMe" class="form-check-label">Beni Hatırla</label>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Giriş Yap</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

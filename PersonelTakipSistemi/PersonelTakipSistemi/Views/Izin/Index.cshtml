@@ -1,0 +1,167 @@
+@model IEnumerable<PersonelTakipSistemi.Models.ViewModels.IzinListViewModel>
+
+@{
+    ViewData["Title"] = "İzin Listesi";
+}
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>@ViewData["Title"]</h2>
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Yeni İzin Talebi
+        </a>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.PersonelAdSoyad)</th>
+                            <th>@Html.DisplayNameFor(model => model.IzinTuru)</th>
+                            <th>@Html.DisplayNameFor(model => model.BaslangicTarihi)</th>
+                            <th>@Html.DisplayNameFor(model => model.BitisTarihi)</th>
+                            <th>@Html.DisplayNameFor(model => model.OnayDurumu)</th>
+                            <th>@Html.DisplayNameFor(model => model.OnaylayanAdSoyad)</th>
+                            <th>@Html.DisplayNameFor(model => model.OnayTarihi)</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.PersonelAdSoyad)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IzinTuru)</td>
+                                <td>@item.BaslangicTarihi.ToShortDateString()</td>
+                                <td>@item.BitisTarihi.ToShortDateString()</td>
+                                <td>
+                                    <span class="badge @(item.OnayDurumu switch {
+                                        PersonelTakipSistemi.Models.IzinOnayDurumu.Beklemede => "bg-warning",
+                                        PersonelTakipSistemi.Models.IzinOnayDurumu.Onaylandi => "bg-success",
+                                        PersonelTakipSistemi.Models.IzinOnayDurumu.Reddedildi => "bg-danger",
+                                        _ => "bg-secondary"
+                                    })">
+                                        @Html.DisplayFor(modelItem => item.OnayDurumu)
+                                    </span>
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.OnaylayanAdSoyad)</td>
+                                <td>@(item.OnayTarihi?.ToShortDateString() ?? "-")</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        @if (User.IsInRole("Admin") && item.OnayDurumu == PersonelTakipSistemi.Models.IzinOnayDurumu.Beklemede)
+                                        {
+                                            <button type="button" class="btn btn-success btn-sm" title="Onayla"
+                                                    onclick="confirmOnay(@item.Id, true)">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-sm" title="Reddet"
+                                                    onclick="confirmOnay(@item.Id, false)">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        }
+                                        @if (item.OnayDurumu == PersonelTakipSistemi.Models.IzinOnayDurumu.Beklemede)
+                                        {
+                                            <button type="button" class="btn btn-danger btn-sm" title="Sil"
+                                                    onclick="confirmDelete(@item.Id)">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Onay Modal -->
+<div class="modal fade" id="onayModal" tabindex="-1" aria-labelledby="onayModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="onayModalLabel">İzin Talebi Onayı</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="onayModalText"></p>
+            </div>
+            <div class="modal-footer">
+                <form id="onayForm" asp-action="Onayla" method="post">
+                    <input type="hidden" id="izinId" name="id" />
+                    <input type="hidden" id="onayla" name="onayla" />
+                    @Html.AntiForgeryToken()
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="submit" class="btn btn-primary">Onayla</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Silme Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">İzin Talebi Silme Onayı</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bu izin talebini silmek istediğinizden emin misiniz?</p>
+            </div>
+            <div class="modal-footer">
+                <form id="deleteForm" asp-action="Delete" method="post">
+                    <input type="hidden" id="deleteIzinId" name="id" />
+                    @Html.AntiForgeryToken()
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="submit" class="btn btn-danger">Sil</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function confirmOnay(id, onayla) {
+            document.getElementById('izinId').value = id;
+            document.getElementById('onayla').value = onayla;
+            document.getElementById('onayModalText').textContent = 
+                onayla ? "Bu izin talebini onaylamak istediğinizden emin misiniz?" : 
+                         "Bu izin talebini reddetmek istediğinizden emin misiniz?";
+            document.querySelector('#onayForm button[type="submit"]').textContent = 
+                onayla ? "Onayla" : "Reddet";
+            document.querySelector('#onayForm button[type="submit"]').className = 
+                onayla ? "btn btn-success" : "btn btn-danger";
+            var onayModal = new bootstrap.Modal(document.getElementById('onayModal'));
+            onayModal.show();
+        }
+
+        function confirmDelete(id) {
+            document.getElementById('deleteIzinId').value = id;
+            var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            deleteModal.show();
+        }
+    </script>
+} 
