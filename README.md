@@ -76,3 +76,12 @@ Katkıda bulunmak isterseniz lütfen iletişime geçin veya pull request gönder
 ## Lisans
 
 Bu proje MIT Lisansı ile lisanslanmıştır. Daha fazla bilgi için `LICENSE` dosyasına bakabilirsiniz (Eğer varsa). 
+
+![Ekran görüntüsü 2025-05-22 230259](https://github.com/user-attachments/assets/4462ad14-cb35-47ab-a6ee-65e28decf261)
+![Ekran görüntüsü 2025-05-22 230331](https://github.com/user-attachments/assets/e1668e28-a37f-4965-b188-b7bc13db24fa)
+![Ekran görüntüsü 2025-05-22 230355](https://github.com/user-attachments/assets/ec8b5013-0325-43be-9191-70bf18c9a3bb)
+![Ekran görüntüsü 2025-05-22 230531](https://github.com/user-attachments/assets/ce1e8c2b-695f-42c8-9dab-9d0ca2737c0a)
+![Ekran görüntüsü 2025-05-22 230455](https://github.com/user-attachments/assets/b494c308-efb6-4bef-8ea9-2e1769b71dd9)
+![Ekran görüntüsü 2025-05-22 230439](https://github.com/user-attachments/assets/997e598b-3544-4fcd-a72a-6a10054fe7fc)
+![Ekran görüntüsü 2025-05-22 230513](https://github.com/user-attachments/assets/2cdf6d45-fb03-4a89-b25f-bd4aecf7d79a)
+![Ekran görüntüsü 2025-05-22 230637](https://github.com/user-attachments/assets/4de33295-70fb-4e7b-89d2-69c97e48341c)
